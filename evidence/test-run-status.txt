@@ -1,0 +1,25 @@
+Execution status: Verified and passing
+======================================
+Environment:
+  Operating System: Windows (win32)
+  Node.js: v22.17.1
+  Bun: v1.4.4
+  Vitest: v3.2.7
+  TypeScript: v5.9.3
+
+Execution summary:
+1. `bun install --frozen-lockfile` completed successfully (60 packages installed).
+2. `bun run check-types` (`tsc --noEmit`) succeeded with 0 errors.
+3. Pre-fix regression test:
+   - Captured in `evidence/test-run-pre-fix.txt`.
+   - Fails both 12-row regression tests (batch size 5: 7 processed / 5 pending; batch size 3: 6 processed / 6 pending).
+4. Post-fix regression test:
+   - Captured in `evidence/test-run-post-fix.txt`.
+   - All 27 tests pass, including API validation, workspace isolation, restart persistence, and 12-row regressions with batch sizes 5 and 3.
+5. Baseline runtime reproduction:
+   - Captured in `evidence/baseline-runtime-capture.md`.
+   - Demonstrates the worker bug on `case-002` (7 processed / 5 pending) and reproduces it via isolated CSV import POST.
+6. Case reconciliation:
+   - Captured in `evidence/post-fix-verification.md`.
+   - Running `bun run resume-case` with the patched worker processes remaining pending records [6, 7, 8, 9, 10].
+   - Final state: 12 processed / 0 pending, exactly 12 results with preserved prior identities, no duplicates, and Maple control untouched.
