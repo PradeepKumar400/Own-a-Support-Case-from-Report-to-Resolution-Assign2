@@ -296,3 +296,4 @@ Content-Length: 350
 ```
 
 **Verification:** The reproduction unequivocally confirms that the worker bug skips rows 6 through 10 (which stay `pending`), while processing only 7 rows and marking the job `completed`.
+
